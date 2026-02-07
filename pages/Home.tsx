@@ -34,8 +34,7 @@ export default function Home({ onNavigate }: HomeProps) {
         <div className="text-center py-20 bg-story-800/30 rounded-2xl border border-story-700 border-dashed">
           <Sparkles className="mx-auto text-story-accent mb-4" size={48} />
           <h2 className="text-xl font-semibold mb-2">No Stories Yet</h2>
-          <p className="text-gray-400 mb-6">Be the first Director to launch a universe.</p>
-          <Button onClick={() => onNavigate('create')}>Create Plot</Button>
+          <p className="text-gray-400">Be the first Director to launch a universe.</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

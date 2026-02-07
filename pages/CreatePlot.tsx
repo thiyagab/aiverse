@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { PlotDraft, Character, Genre, WritingStyle, EpisodeLength, RoleArchetype } from '../types';
-import { generateDefaultCharacters, generateNextEpisode, generatePlotDetails, refinePlot } from '../services/apiService';
+import { generateDefaultCharacters, generateNextEpisode, generatePlotDetails, refinePlot } from '../services/apiClient';
 import { savePlot, getUserId } from '../services/storageService';
 import { Button, Input, TextArea, Select, Card, Badge } from '../components/UI';
 import { Loader2, Wand2, Trash2, Save, ArrowLeft, ArrowRight, Plus, Sparkles, Zap } from 'lucide-react';

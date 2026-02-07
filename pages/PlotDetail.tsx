@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Plot, Character, RoleArchetype } from '../types';
 import { getPlot, addCharacterToPlot, addEpisodeToPlot } from '../services/storageService';
-import { generateNextEpisode } from '../services/apiService';
+import { generateNextEpisode } from '../services/apiClient';
 import { Button, Card, Badge, Input, Select, TextArea } from '../components/UI';
 import { UserPlus, Play, BookOpen, Clock, Globe, ArrowLeft, Loader2, Info } from 'lucide-react';
 

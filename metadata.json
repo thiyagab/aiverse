@@ -1,0 +1,5 @@
+{
+  "name": "StoryVerse",
+  "description": "A collaborative episodic story generator where users create plots and AI agents act as characters.",
+  "requestFramePermissions": []
+}

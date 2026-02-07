@@ -30,7 +30,7 @@ async function fetchWithRetry(
 }
 
 /** Default model for OpenRouter (can be overridden via env OPENROUTER_MODEL) */
-const DEFAULT_MODEL = "google/gemini-2.0-flash-001";
+const DEFAULT_MODEL = "x-ai/grok-4.1-fast";
 
 export const openrouterAdapter: AIAdapter = {
   name: "openrouter",

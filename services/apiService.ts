@@ -110,7 +110,18 @@ export const generatePlotDetails = async (input: string): Promise<Partial<PlotDr
     const opts: Parameters<AIAdapter["generateContent"]>[1] = { jsonSchema: plotDetailsSchema };
     if (adapter.name === "gemini") opts.model = FAST_MODEL;
     const { text } = await adapter.generateContent(prompt, opts);
-    return JSON.parse(text || "{}");
+    const raw = JSON.parse(text || "{}");
+    // Normalize keys from OpenRouter/other providers (e.g. Title, Setting, "Rules of the World")
+    return {
+      title: raw.title ?? raw.Title ?? "",
+      genre: raw.genre ?? raw.Genre ?? "",
+      writingStyle: raw.writingStyle ?? raw.WritingStyle ?? "",
+      setting: raw.setting ?? raw.Setting ?? "",
+      plot: raw.plot ?? raw.Plot ?? "",
+      rules: raw.rules ?? raw["Rules of the World"] ?? "",
+      objective: raw.objective ?? raw["Story Objective"] ?? "",
+      episodeLength: raw.episodeLength ?? raw["Episode Length"] ?? 600,
+    };
   } catch (error) {
     console.error("Error generating plot details:", error);
     return {};
@@ -235,13 +246,17 @@ export const generateNextEpisode = async (
 
   const parseEpisode = (raw: string) => {
     const data = JSON.parse(raw || "{}");
-    return {
-      title: data.episodeTitle ?? "",
-      text: data.episodeText ?? "",
-      summary: Array.isArray(data.episodeSummary) ? data.episodeSummary : [],
-      memory: data.storyMemory ?? "",
-      charactersUsed: Array.isArray(data.charactersUsed) ? data.charactersUsed : [],
-    };
+    // Normalize keys from OpenRouter/other providers (title, narrative, story_memory, recent_events)
+    const title = data.episodeTitle ?? data.title ?? "";
+    const text = data.episodeText ?? data.narrative ?? "";
+    const summary = Array.isArray(data.episodeSummary)
+      ? data.episodeSummary
+      : Array.isArray(data.recent_events)
+        ? data.recent_events
+        : [];
+    const memory = data.storyMemory ?? data.story_memory ?? "";
+    const charactersUsed = Array.isArray(data.charactersUsed) ? data.charactersUsed : [];
+    return { title, text, summary, memory, charactersUsed };
   };
 
   try {
